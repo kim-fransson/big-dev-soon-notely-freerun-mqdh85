@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "cz"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -38,6 +39,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "10.4.16",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -52,5 +54,10 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
     "vite-plugin-svgr": "4.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
