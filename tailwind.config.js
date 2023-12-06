@@ -53,15 +53,22 @@ export default {
           "font-weight": "500",
           "letter-spacing": "0.24px",
         },
-        ".button": {
+        ".button-text": {
           "font-size": "16px",
           "font-weight": "500",
           "letter-spacing": "1.25px",
+          "line-height": "24px",
         },
         ".body": {
           "font-size": "16px",
           "font-weight": "400",
           "letter-spacing": "0.5px",
+        },
+        ".body-2": {
+          "font-size": "14px",
+          "font-weight": "500",
+          "letter-spacing": "0.25px",
+          "line-height": "24px",
         },
         ".caption": {
           "font-size": "12px",

@@ -20,9 +20,12 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@fontsource/roboto": "5.0.8",
+    "@fontsource/poppins": "^5.0.8",
+    "class-variance-authority": "^0.7.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-aria": "^3.30.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.1.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.6.3",
