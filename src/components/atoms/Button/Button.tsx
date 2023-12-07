@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import { mergeProps, useFocusRing, usePress } from "react-aria";
 import { twMerge } from "tailwind-merge";
 
-export type ButtonProps = VariantProps<typeof button>;
+export type VariantButtonProps = VariantProps<typeof button>;
 const button = cva(
   [
     "inline-flex outline-none justify-center items-center button-text cursor-pointer select-none",
@@ -14,7 +14,7 @@ const button = cva(
     variants: {
       intent: {
         primary: [
-          "py-3 px-4 gap-2 rounded-[56px] bg-blue-400 text-white",
+          "p-1 md:py-3 md:px-4 gap-2 rounded-[56px] bg-blue-400 text-white",
           "hover:bg-blue-500",
         ],
         ghost: [
@@ -37,11 +37,11 @@ const button = cva(
   },
 );
 
-export const Button = (
-  props: ButtonProps &
-    ButtonHTMLAttributes<HTMLButtonElement> &
-    PropsWithChildren,
-) => {
+export type ButtonProps = VariantButtonProps &
+  ButtonHTMLAttributes<HTMLButtonElement> &
+  PropsWithChildren;
+
+export const Button = (props: ButtonProps) => {
   const { children, className, ...rest } = props;
   const { pressProps, isPressed } = usePress({});
   const { isFocusVisible, focusProps } = useFocusRing();

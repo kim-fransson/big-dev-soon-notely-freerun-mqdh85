@@ -9,6 +9,10 @@ const category = cva(
     variants: {
       color: {
         orange: ["bg-orange-200 text-orange-900"],
+        green: ["bg-green-200 text-green-900"],
+        purple: ["bg-deep-purple-200 text-deep-purple-900"],
+        blue: ["bg-blue-200 text-blue-900"],
+        red: ["bg-red-200 text-red-900"],
       },
     },
     defaultVariants: {
