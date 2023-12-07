@@ -57,7 +57,6 @@ export default {
           "font-size": "16px",
           "font-weight": "500",
           "letter-spacing": "1.25px",
-          "line-height": "24px",
         },
         ".body": {
           "font-size": "16px",
@@ -68,12 +67,16 @@ export default {
           "font-size": "14px",
           "font-weight": "500",
           "letter-spacing": "0.25px",
-          "line-height": "24px",
         },
         ".caption": {
           "font-size": "12px",
           "font-weight": "400",
           "letter-spacing": "0.4px",
+        },
+        ".label": {
+          "font-size": "16px",
+          "font-weight": "500",
+          "letter-spacing": "0.5px",
         },
       });
     },
