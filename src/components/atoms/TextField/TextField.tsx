@@ -15,7 +15,7 @@ export const TextField = (
   } = useTextField(props, inputRef);
 
   return (
-    <div className="inline-flex flex-col gap-1">
+    <div className="inline-flex flex-col gap-1 w-full">
       <label
         {...labelProps}
         className="capitalize label text-gray-900/87 select-none"
