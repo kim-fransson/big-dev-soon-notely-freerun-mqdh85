@@ -1,3 +1,5 @@
+import headlessui from "@headlessui/tailwindcss";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -40,6 +42,7 @@ export default {
     },
   },
   plugins: [
+    headlessui,
     // https://github.com/tailwindlabs/tailwindcss-intellisense/issues/227#issuecomment-1139895799
     ({ addUtilities }) => {
       addUtilities({
@@ -74,6 +77,11 @@ export default {
           "letter-spacing": "0.4px",
         },
         ".label": {
+          "font-size": "16px",
+          "font-weight": "600",
+          "letter-spacing": "0.5px",
+        },
+        ".input": {
           "font-size": "16px",
           "font-weight": "500",
           "letter-spacing": "0.5px",

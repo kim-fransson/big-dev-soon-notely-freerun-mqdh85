@@ -27,7 +27,7 @@ export const TextArea = (
       <textarea
         {...inputProps}
         ref={textAreaRef}
-        className="rounded-lg p-3 text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border border-black/12 active:outline-blue-500"
+        className="rounded-lg p-3 input text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border border-black/12 active:outline-blue-500"
       />
     </div>
   );

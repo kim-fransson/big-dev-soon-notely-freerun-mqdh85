@@ -24,7 +24,7 @@ export const TextField = (
       </label>
       <input
         {...inputProps}
-        className="placeholder:text-gray-900/60 text-gray-900/87 py-2 px-3 selection:bg-blue-200 rounded-lg border border-black/12 bg-gray-200 focus:outline-blue-500 "
+        className="placeholder:text-gray-900/60 input text-gray-900/87 py-2 px-3 selection:bg-blue-200 rounded-lg border border-black/12 bg-gray-200 focus:outline-blue-500 "
         ref={inputRef}
       />
       {isInvalid && (
