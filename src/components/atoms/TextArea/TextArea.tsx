@@ -1,13 +1,23 @@
-import { HTMLAttributes, useRef } from "react";
+import { HTMLAttributes, RefObject, useRef } from "react";
 import type { AriaTextFieldProps } from "react-aria";
 import { useTextField } from "react-aria";
 import { twMerge } from "tailwind-merge";
 
-export const TextArea = (
-  props: AriaTextFieldProps & HTMLAttributes<HTMLDivElement>,
-) => {
-  const { label, className, isRequired, maxLength } = props;
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+export type TextAreaProps = {
+  textAreaRef?: RefObject<HTMLTextAreaElement>;
+} & AriaTextFieldProps &
+  HTMLAttributes<HTMLDivElement>;
+
+export const TextArea = (props: TextAreaProps) => {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const {
+    label,
+    className,
+    isRequired,
+    maxLength,
+    textAreaRef = ref,
+    value,
+  } = props;
   const { labelProps, inputProps } = useTextField(
     {
       ...props,
@@ -20,22 +30,26 @@ export const TextArea = (
     <div className={twMerge("inline-flex flex-col gap-1", className)}>
       <label
         {...labelProps}
-        className="capitalize label text-gray-900/87 select-none flex items-center gap-1"
+        className="capitalize label text-gray-900/87 select-none flex items-center gap-2"
       >
         {label}
         {!isRequired && (
-          <span className="body text-gray-900/60">(optional)</span>
+          <span className="caption text-gray-900/60 lowercase">(optional)</span>
         )}
-        {maxLength && textAreaRef.current && (
-          <span className="ml-auto caption text-gray-900/60">
-            {textAreaRef.current.value.length} / {maxLength}{" "}
+        {maxLength && (
+          <span
+            className={`ml-auto caption text-gray-900/60 ${
+              value?.length === maxLength && "text-blue-500"
+            }`}
+          >
+            {value?.length || 0} / {maxLength}{" "}
           </span>
         )}
       </label>
       <textarea
         {...inputProps}
         ref={textAreaRef}
-        className="rounded-lg p-3 input text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border border-black/12 active:outline-blue-500"
+        className="rounded-lg outline-none p-3 input text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border border-black/12 focus-visible:border-blue-500"
       />
     </div>
   );

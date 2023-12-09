@@ -23,7 +23,7 @@ export const SearchField = (
     >
       <SearchIcon className="shrink-0 hidden md:inline-block" />
       <input
-        className="outline-none bg-transparent placeholder:text-gray-900/60"
+        className="outline-none input bg-transparent placeholder:text-gray-900/60"
         {...inputProps}
         ref={inputRef}
       />

@@ -27,6 +27,7 @@
     "react": "^18.2.0",
     "react-aria": "^3.30.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "7.48.2",
     "react-stately": "3.28.0",
     "tailwind-merge": "^2.1.0"
   },
@@ -34,7 +35,6 @@
     "@storybook/addon-essentials": "7.6.3",
     "@storybook/addon-interactions": "7.6.3",
     "@storybook/addon-links": "7.6.3",
-    "@storybook/addon-onboarding": "1.0.9",
     "@storybook/blocks": "7.6.3",
     "@storybook/react": "7.6.3",
     "@storybook/react-vite": "7.6.3",
