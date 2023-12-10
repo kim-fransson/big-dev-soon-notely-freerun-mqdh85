@@ -7,22 +7,22 @@ import { twMerge } from "tailwind-merge";
 export type VariantButtonProps = VariantProps<typeof button>;
 const button = cva(
   [
-    "inline-flex outline-none justify-center items-center button-text cursor-pointer select-none",
+    "inline-flex border-2 border-transparent outline-none justify-center items-center button-text cursor-pointer select-none",
     "transition-all active:scale-90",
   ],
   {
     variants: {
       intent: {
         primary: [
-          "p-1 md:py-3 md:px-4 gap-2 rounded-[56px] bg-blue-400 text-white",
+          "p-1 md:py-2 md:px-4 gap-2 rounded-[56px] bg-blue-400 text-white border-transparent",
           "hover:bg-blue-500",
         ],
         ghost: [
-          "text-gray-600 py-2.5 px-4 gap-2 rounded-[56px]",
+          "text-gray-600 py-2 px-4 gap-2 rounded-[56px]",
           "hover:text-gray-900/87",
         ],
         danger: [
-          "py-2.5 px-4 bg-red-400 text-white rounded-[56px]",
+          "py-2 px-4 bg-red-400 text-white rounded-[56px]",
           "hover:bg-red-500",
         ],
         icon: [
@@ -42,7 +42,7 @@ export type ButtonProps = VariantButtonProps &
   PropsWithChildren;
 
 export const Button = (props: ButtonProps) => {
-  const { children, className, ...rest } = props;
+  const { children, className, intent, ...rest } = props;
   const { pressProps, isPressed } = usePress({});
   const { isFocusVisible, focusProps } = useFocusRing();
   return (
@@ -50,9 +50,11 @@ export const Button = (props: ButtonProps) => {
       {...mergeProps(pressProps, focusProps)}
       {...rest}
       className={twMerge(
-        button(rest),
+        button({ ...rest, intent }),
         isPressed && "scale-90",
-        isFocusVisible && "outline-blue-500",
+        isFocusVisible && ["primary", "danger"].includes(intent || "")
+          ? "outline-blue-500"
+          : isFocusVisible && "border-blue-500",
         className,
       )}
     >

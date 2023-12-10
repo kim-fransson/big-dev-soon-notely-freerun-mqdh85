@@ -16,7 +16,7 @@ export const TextField = (props: TextFieldProps) => {
   );
 
   return (
-    <div className="inline-flex flex-col gap-1 w-full relative">
+    <div className="inline-flex flex-col gap-1 relative">
       <label
         {...labelProps}
         className="capitalize label text-gray-900/87 select-none"
@@ -25,7 +25,7 @@ export const TextField = (props: TextFieldProps) => {
       </label>
       <input
         {...inputProps}
-        className={`placeholder:text-gray-900/60 input text-gray-900/87 py-2 px-3 selection:bg-blue-200 rounded-lg border border-black/12 bg-gray-200 outline-none ${
+        className={`placeholder:text-gray-900/60 input text-gray-900/87 py-2 px-3 selection:bg-blue-200 rounded-lg border-2 border-black/12 bg-gray-200 outline-none ${
           isInvalid ? "border-red-400" : "focus:border-blue-500"
         }`}
         autoComplete="off"

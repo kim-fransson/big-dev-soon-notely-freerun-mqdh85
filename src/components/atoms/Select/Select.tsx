@@ -13,18 +13,19 @@ export type SelectProps<T extends SelectOption> = {
   onChange: (value: T) => void;
   label: string;
   name: string;
+  className?: string;
 };
 
 export const Select = <T extends SelectOption>(props: SelectProps<T>) => {
   const { options, onChange, selectedValue, label, name } = props;
 
   return (
-    <div className="w-full">
+    <div>
       <Listbox value={selectedValue} onChange={onChange} name={name}>
         <Listbox.Label className="label select-none text-gray-900/87 capitalize mb-1 block">
           {label}
         </Listbox.Label>
-        <Listbox.Button className="w-full outline-none relative capitalize text-gray-900/87 input rounded-lg border border-black/12 bg-gray-200 flex px-3 py-2 gap-2.5 items-center focus:border-blue-500 truncate">
+        <Listbox.Button className="w-full outline-none relative capitalize text-gray-900/87 input rounded-lg border-2 border-black/12 bg-gray-200 flex px-3 py-2 gap-2.5 items-center focus:border-blue-500 truncate">
           {selectedValue?.value}
           <CarretDown className="ml-auto h-6 w-6 transition-transform ui-open:-rotate-180" />
         </Listbox.Button>
@@ -36,7 +37,7 @@ export const Select = <T extends SelectOption>(props: SelectProps<T>) => {
           leaveFrom="transform scale-y-100 opacity-100"
           leaveTo="transform scale-y-95 opacity-0"
         >
-          <Listbox.Options className="absolute w-full rounded-lg outline-none overflow-hidden mt-2 shadow-md border border-black/12">
+          <Listbox.Options className="absolute w-full rounded-lg outline-none overflow-hidden mt-2 shadow-md border-2 border-black/12">
             {options.map((option) => (
               <Listbox.Option
                 key={option.key}

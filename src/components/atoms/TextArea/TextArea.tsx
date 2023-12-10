@@ -26,6 +26,10 @@ export const TextArea = (props: TextAreaProps) => {
     textAreaRef,
   );
 
+  console.log({
+    limitReached: value?.length === maxLength,
+  });
+
   return (
     <div className={twMerge("inline-flex flex-col gap-1", className)}>
       <label
@@ -34,13 +38,14 @@ export const TextArea = (props: TextAreaProps) => {
       >
         {label}
         {!isRequired && (
-          <span className="caption text-gray-900/60 lowercase">(optional)</span>
+          <span className="body-2 text-gray-900/60 lowercase">(optional)</span>
         )}
         {maxLength && (
           <span
-            className={`ml-auto caption text-gray-900/60 ${
-              value?.length === maxLength && "text-blue-500"
-            }`}
+            className={twMerge(
+              "ml-auto caption text-gray-900/60",
+              value?.length === maxLength && "text-blue-500",
+            )}
           >
             {value?.length || 0} / {maxLength}{" "}
           </span>
@@ -49,7 +54,7 @@ export const TextArea = (props: TextAreaProps) => {
       <textarea
         {...inputProps}
         ref={textAreaRef}
-        className="rounded-lg outline-none p-3 input text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border border-black/12 focus-visible:border-blue-500"
+        className="flex-1 rounded-lg outline-none px-3 py-2 input text-gray-900/87 placeholder:text-gray-900/60 bg-gray-200 border-2 border-black/12 focus-visible:border-blue-500"
       />
     </div>
   );

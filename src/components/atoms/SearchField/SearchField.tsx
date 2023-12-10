@@ -15,8 +15,8 @@ export const SearchField = (
   return (
     <div
       className={twMerge(
-        "flex overflow-hidden py-2 px-3 items-center rounded-lg bg-gray-200 md:py-3 md:px-6 gap-2.5 text-gray-900/87",
-        "focus-within:outline-blue-500 focus-within:outline",
+        "flex overflow-hidden py-1 px-3 items-center rounded-lg bg-gray-200 md:py-3 md:px-6 gap-2.5 text-gray-900/87",
+        "outline-none border-2 border-transparent focus-within:border-blue-500",
         props.className,
       )}
       onClick={() => inputRef.current && inputRef.current.focus()}

@@ -19,9 +19,10 @@ export type AddNoteFormValues = {
 
 export type AddNoteFormProps = {
   onSubmit: (values: AddNoteFormValues) => void;
+  onCancel: () => void;
 };
 
-export const AddNoteForm = ({ onSubmit }: AddNoteFormProps) => {
+export const AddNoteForm = ({ onSubmit, onCancel }: AddNoteFormProps) => {
   const { handleSubmit, control } = useForm<AddNoteFormValues>({
     defaultValues: {
       title: "",
@@ -32,7 +33,7 @@ export const AddNoteForm = ({ onSubmit }: AddNoteFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-      <div className="flex gap-6">
+      <div className="grid grid-cols-2 gap-6">
         <Controller
           name="title"
           control={control}
@@ -83,11 +84,17 @@ export const AddNoteForm = ({ onSubmit }: AddNoteFormProps) => {
             label="description"
             placeholder="Add description"
             maxLength={200}
+            className="min-h-[190px]"
           />
         )}
       />
       <div className="flex justify-end gap-4">
-        <Button intent="ghost" className="col-start-2">
+        <Button
+          onClick={onCancel}
+          type="button"
+          intent="ghost"
+          className="col-start-2"
+        >
           Cancel
         </Button>
         <Button type="submit" intent="primary" className="col-start-2">
