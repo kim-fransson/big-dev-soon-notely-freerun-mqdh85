@@ -24,7 +24,9 @@
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@icons/*": ["src/assets/icons/*"]
+      "@icons/*": ["src/assets/icons/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@reducers/*": ["src/reducers/*"]
     }
   },
   "include": ["src"],

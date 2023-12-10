@@ -10,6 +10,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@icons": path.resolve(__dirname, "./src/assets/icons"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@contexts": path.resolve(__dirname, "./src/contexts"),
+      "@reducers": path.resolve(__dirname, "./src/reducers"),
     },
   },
   plugins: [react(), svgr()],

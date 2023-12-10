@@ -26,10 +26,6 @@ export const TextArea = (props: TextAreaProps) => {
     textAreaRef,
   );
 
-  console.log({
-    limitReached: value?.length === maxLength,
-  });
-
   return (
     <div className={twMerge("inline-flex flex-col gap-1", className)}>
       <label

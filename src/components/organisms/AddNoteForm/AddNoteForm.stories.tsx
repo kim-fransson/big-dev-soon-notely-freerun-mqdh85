@@ -7,8 +7,8 @@ const meta: Meta<typeof AddNoteForm> = {
     layout: "centered",
   },
   argTypes: {
-    onSubmit: {
-      action: "note created",
+    onAdd: {
+      action: "note added",
     },
     onCancel: {
       action: "cancel",

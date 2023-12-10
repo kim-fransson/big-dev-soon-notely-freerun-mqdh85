@@ -52,7 +52,7 @@ export const Button = (props: ButtonProps) => {
       className={twMerge(
         button({ ...rest, intent }),
         isPressed && "scale-90",
-        isFocusVisible && ["primary", "danger"].includes(intent || "")
+        isFocusVisible && ["primary", "danger", ""].includes(intent || "")
           ? "outline-blue-500"
           : isFocusVisible && "border-blue-500",
         className,

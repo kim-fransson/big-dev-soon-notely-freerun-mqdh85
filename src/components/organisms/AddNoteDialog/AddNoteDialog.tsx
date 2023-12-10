@@ -41,7 +41,7 @@ export const AddNoteDialog = (props: AddNoteDialogProps) => {
               </Dialog.Title>
 
               <AddNoteForm
-                onSubmit={() => onClose(false)}
+                onAdd={() => onClose(false)}
                 onCancel={() => onClose(false)}
               />
             </Dialog.Panel>

@@ -3,7 +3,9 @@ import { Select } from "@/components/atoms/Select/Select";
 import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import { TextField } from "@/components/atoms/TextField/TextField";
 import { useForm, Controller } from "react-hook-form";
-import { RefObject } from "react";
+import { RefObject, useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { NotesContext } from "@/contexts";
 
 const categories: Category[] = [
   { key: 1, value: "personal" },
@@ -18,11 +20,12 @@ export type AddNoteFormValues = {
 };
 
 export type AddNoteFormProps = {
-  onSubmit: (values: AddNoteFormValues) => void;
   onCancel: () => void;
+  onAdd: () => void;
 };
 
-export const AddNoteForm = ({ onSubmit, onCancel }: AddNoteFormProps) => {
+export const AddNoteForm = ({ onCancel, onAdd }: AddNoteFormProps) => {
+  const { dispatch } = useContext(NotesContext);
   const { handleSubmit, control } = useForm<AddNoteFormValues>({
     defaultValues: {
       title: "",
@@ -30,6 +33,18 @@ export const AddNoteForm = ({ onSubmit, onCancel }: AddNoteFormProps) => {
       description: "",
     },
   });
+
+  const onSubmit = (values: AddNoteFormValues) => {
+    dispatch({
+      type: "ADD_NOTE",
+      note: {
+        ...values,
+        createdAt: new Date(),
+        id: uuidv4(),
+      },
+    });
+    onAdd();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
