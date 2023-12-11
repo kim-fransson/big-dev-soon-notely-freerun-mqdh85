@@ -13,5 +13,13 @@ export const notesReducer = (notes: Note[], action: NoteAction): Note[] => {
     case "DELETE_NOTE": {
       return notes.filter((note) => note.id !== action.noteId);
     }
+
+    case "TOGGLE_ARCHIVE_NOTE": {
+      return notes.map((note) =>
+        note.id === action.noteId
+          ? { ...note, state: note.state === "archived" ? "inbox" : "archived" }
+          : note,
+      );
+    }
   }
 };

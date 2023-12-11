@@ -40,6 +40,13 @@ export const NoteList = (props: NoteListProps) => {
     openDeleteNoteDialog();
   };
 
+  const handleArchiveNote = (note: Note) => {
+    dispatch({
+      type: "TOGGLE_ARCHIVE_NOTE",
+      noteId: note.id,
+    });
+  };
+
   const handleSubmit = (values: NoteFormValues) => {
     dispatch({
       type: "UPDATE_NOTE",
@@ -64,7 +71,15 @@ export const NoteList = (props: NoteListProps) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
         {notes
-          .sort((n1, n2) => (n1.updatedAt >= n2.updatedAt ? -1 : 1))
+          .sort((n1, n2) => {
+            if (n1.state === "archived" && n2.state === "archived") {
+              return n1.updatedAt >= n2.updatedAt ? -1 : 1;
+            } else if (n1.state !== "archived" && n2.state !== "archived") {
+              return n1.updatedAt >= n2.updatedAt ? -1 : 1;
+            } else {
+              return n1.state === "archived" ? 1 : -1;
+            }
+          })
           .map((note) => (
             <NoteCard
               key={note.id}
@@ -72,6 +87,7 @@ export const NoteList = (props: NoteListProps) => {
               {...events}
               onEditNote={() => handleEditNote(note)}
               onDeleteNote={() => handleDeleteNote(note)}
+              onArchiveNote={() => handleArchiveNote(note)}
             />
           ))}
       </div>

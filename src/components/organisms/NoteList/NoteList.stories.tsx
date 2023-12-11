@@ -11,7 +11,7 @@ const mockedNotes = [
   { ...NoteStories.Home.args!.note, id: "2", title: "Note 2" },
   { ...NoteStories.Personal.args!.note, id: "3", title: "Note 3" },
   { ...NoteStories.NoDescription.args!.note, id: "4", title: "Note 4" },
-  { ...NoteStories.Home.args!.note, id: "5", title: "Note 5" },
+  { ...NoteStories.Archived.args!.note, id: "5", title: "Note 5" },
   { ...NoteStories.LongDescription.args!.note, id: "6", title: "Note 6" },
 ] as Note[];
 

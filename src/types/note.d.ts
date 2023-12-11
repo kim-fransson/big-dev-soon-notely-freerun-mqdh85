@@ -22,7 +22,11 @@ type Note = {
   state: NoteState;
 };
 
-type NoteAction = AddNoteAction | DeleteNoteAction | UpdateNoteAction;
+type NoteAction =
+  | AddNoteAction
+  | DeleteNoteAction
+  | UpdateNoteAction
+  | ArchiveNoteAction;
 
 type AddNoteAction = {
   type: "ADD_NOTE";
@@ -36,5 +40,10 @@ type UpdateNoteAction = {
 
 type DeleteNoteAction = {
   type: "DELETE_NOTE";
+  noteId: string;
+};
+
+type ArchiveNoteAction = {
+  type: "TOGGLE_ARCHIVE_NOTE";
   noteId: string;
 };

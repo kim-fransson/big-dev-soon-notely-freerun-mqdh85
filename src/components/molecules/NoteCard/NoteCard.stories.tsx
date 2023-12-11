@@ -85,3 +85,12 @@ export const LongDescription: Story = {
     } as Note,
   },
 };
+
+export const Archived: Story = {
+  args: {
+    note: {
+      ...Playground.args!.note,
+      state: "archived",
+    } as Note,
+  },
+};

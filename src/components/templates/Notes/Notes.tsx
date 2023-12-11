@@ -31,7 +31,7 @@ export const Notes = () => {
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
       <Navbar onSearch={() => {}} onAdd={openAddNoteDialog} />
-      <main className="p-8 max-w">
+      <main className="p-8">
         <NoteList />
       </main>
       <Dialog
