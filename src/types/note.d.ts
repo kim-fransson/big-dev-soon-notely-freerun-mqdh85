@@ -35,6 +35,6 @@ type UpdateNoteAction = {
 };
 
 type DeleteNoteAction = {
-  type: "delete_note";
-  noteId: number;
+  type: "DELETE_NOTE";
+  noteId: string;
 };

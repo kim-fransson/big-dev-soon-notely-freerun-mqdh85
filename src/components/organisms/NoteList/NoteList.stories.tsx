@@ -17,9 +17,7 @@ const mockedNotes = [
 
 const meta: Meta<typeof NoteList> = {
   component: NoteList,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   argTypes: {},
   decorators: [
     (Story) => {

@@ -9,8 +9,9 @@ export const notesReducer = (notes: Note[], action: NoteAction): Note[] => {
         note.id === action.note.id ? { ...note, ...action.note } : note,
       );
     }
-    default: {
-      throw Error("Unknown action: " + action.type);
+
+    case "DELETE_NOTE": {
+      return notes.filter((note) => note.id !== action.noteId);
     }
   }
 };

@@ -3,9 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof NoteCard> = {
   component: NoteCard,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   argTypes: {
     onArchiveNote: { action: "archive note" },
     onDeleteNote: { action: "delete note" },
