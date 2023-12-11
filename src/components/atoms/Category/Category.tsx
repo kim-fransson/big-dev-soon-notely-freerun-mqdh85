@@ -25,5 +25,9 @@ export const Category = (
   props: CategoryProps & PropsWithChildren & HTMLAttributes<HTMLDivElement>,
 ) => {
   const { children, className, ...rest } = props;
-  return <div className={twMerge(category(rest), className)}>{children}</div>;
+  return (
+    <div className={twMerge(category(rest), "capitalize", className)}>
+      {children}
+    </div>
+  );
 };

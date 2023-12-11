@@ -1,5 +1,6 @@
-import { AddNoteDialog } from "@/components/organisms/AddNoteDialog/AddNoteDialog";
+import { AddNoteDialog } from "@/components/organisms/AddNoteDialog";
 import { Navbar } from "@/components/organisms/Navbar";
+import { NoteList } from "@/components/organisms/NoteList";
 import { NotesContext } from "@/contexts";
 import { notesReducer } from "@/reducers";
 import { useReducer, useState } from "react";
@@ -11,12 +12,8 @@ export const Notes = () => {
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
       <Navbar onSearch={() => {}} onAdd={() => setShowAddNoteDialog(true)} />
-      <main>
-        <div className="grid grid-cols-4 gap-4">
-          {notes.map((note) => (
-            <div>{note.title}</div>
-          ))}
-        </div>
+      <main className="p-8 max-w">
+        <NoteList />
       </main>
       <AddNoteDialog
         open={showAddNoteDialog}

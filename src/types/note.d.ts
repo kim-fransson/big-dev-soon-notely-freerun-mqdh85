@@ -4,12 +4,21 @@ type Category = {
   value: CategoryType;
 };
 
+type CategoryColorMap = {
+  personal: "orange";
+  home: "green";
+  business: "purple";
+};
+
+type NoteState = "inbox" | "archived";
+
 type Note = {
   id: string;
   title: string;
   category: Category;
   description?: string;
   createdAt: Date;
+  state: NoteState;
 };
 
 type NoteAction = AddNoteAction | DeleteNoteAction;

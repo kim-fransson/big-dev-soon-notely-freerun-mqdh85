@@ -1,5 +1,5 @@
 import { Dialog, DialogProps, Transition } from "@headlessui/react";
-import { AddNoteForm } from "../AddNoteForm/AddNoteForm";
+import { AddNoteForm } from "../../molecules/AddNoteForm";
 import CloseIcon from "@icons/close-icon.svg?react";
 import { Button } from "@/components/atoms/Button";
 import { Fragment } from "react";
