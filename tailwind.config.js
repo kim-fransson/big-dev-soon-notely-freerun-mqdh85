@@ -1,5 +1,4 @@
 import headlessui from "@headlessui/tailwindcss";
-import lineClamp from "@tailwindcss/line-clamp";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -44,7 +43,6 @@ export default {
   },
   plugins: [
     headlessui,
-    lineClamp,
     // https://github.com/tailwindlabs/tailwindcss-intellisense/issues/227#issuecomment-1139895799
     ({ addUtilities }) => {
       addUtilities({

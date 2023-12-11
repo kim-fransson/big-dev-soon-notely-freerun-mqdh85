@@ -1,16 +1,21 @@
-import { Dialog, DialogProps, Transition } from "@headlessui/react";
-import { AddNoteForm } from "../../molecules/AddNoteForm";
+import {
+  Dialog as HeadlessDialog,
+  DialogProps as HeadlessDialogProps,
+  Transition,
+} from "@headlessui/react";
 import CloseIcon from "@icons/close-icon.svg?react";
 import { Button } from "@/components/atoms/Button";
-import { Fragment } from "react";
+import { Fragment, ReactNode } from "react";
 
-export type AddNoteDialogProps = DialogProps<"div">;
+export type DialogProps = {
+  dialogChildren: ReactNode;
+} & HeadlessDialogProps<"div">;
 
-export const AddNoteDialog = (props: AddNoteDialogProps) => {
-  const { onClose, open } = props;
+export const Dialog = (props: DialogProps) => {
+  const { onClose, open, dialogChildren, title } = props;
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog {...props} className="relative z-50">
+      <HeadlessDialog {...props} className="relative z-50">
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -32,22 +37,18 @@ export const AddNoteDialog = (props: AddNoteDialogProps) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-90"
           >
-            <Dialog.Panel className="bg-white rounded-2xl shadow-lg p-6 max-w-xl">
-              <Dialog.Title className="header-s text-gray-900/87 leading-8 mb-6 flex justify-between items-center">
-                Add note
+            <HeadlessDialog.Panel className="bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full">
+              <HeadlessDialog.Title className="header-s capitalize text-gray-900/87 leading-8 mb-6 flex justify-between items-center">
+                {title}
                 <Button intent="icon" onClick={() => onClose(false)}>
                   <CloseIcon />
                 </Button>
-              </Dialog.Title>
-
-              <AddNoteForm
-                onAdd={() => onClose(false)}
-                onCancel={() => onClose(false)}
-              />
-            </Dialog.Panel>
+              </HeadlessDialog.Title>
+              {dialogChildren}
+            </HeadlessDialog.Panel>
           </Transition.Child>
         </div>
-      </Dialog>
+      </HeadlessDialog>
     </Transition>
   );
 };

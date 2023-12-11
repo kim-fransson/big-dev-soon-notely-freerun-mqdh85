@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AddNoteDialog, AddNoteDialogProps } from "./AddNoteDialog";
+import { Dialog, DialogProps } from "./Dialog";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@/components/atoms/Button";
 
-const DialogWithState = (props: AddNoteDialogProps) => {
+const DialogWithState = (props: DialogProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -11,17 +11,19 @@ const DialogWithState = (props: AddNoteDialogProps) => {
       <Button onClick={() => setIsOpen(true)} intent="primary">
         Open dialog
       </Button>
-      <AddNoteDialog
+      <Dialog
         {...props}
         open={isOpen}
         onClose={() => setIsOpen(false)}
+        title="dialog"
+        dialogChildren={<div>Children goes here</div>}
       />
     </>
   );
 };
 
-const meta: Meta<typeof AddNoteDialog> = {
-  component: AddNoteDialog,
+const meta: Meta<typeof Dialog> = {
+  component: Dialog,
   parameters: {
     layout: "centered",
   },
@@ -30,7 +32,7 @@ const meta: Meta<typeof AddNoteDialog> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof AddNoteDialog>;
+type Story = StoryObj<typeof Dialog>;
 
 export const Playground: Story = {
   args: {},
