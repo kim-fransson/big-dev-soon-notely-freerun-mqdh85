@@ -1,13 +1,15 @@
 import { useSearchFieldState } from "react-stately";
 import { AriaSearchFieldProps, useSearchField } from "react-aria";
-import { HTMLAttributes, useRef } from "react";
+import { useRef } from "react";
 
 import SearchIcon from "@icons/search-icon.svg?react";
 import { twMerge } from "tailwind-merge";
 
-export const SearchField = (
-  props: AriaSearchFieldProps & HTMLAttributes<HTMLDivElement>,
-) => {
+export type SearchFieldProps = {
+  className?: string;
+} & AriaSearchFieldProps;
+
+export const SearchField = (props: SearchFieldProps) => {
   const state = useSearchFieldState(props);
   const inputRef = useRef<HTMLInputElement>(null);
   const { inputProps } = useSearchField(props, state, inputRef);

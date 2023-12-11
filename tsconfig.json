@@ -26,7 +26,8 @@
       "@components/*": ["src/components/*"],
       "@icons/*": ["src/assets/icons/*"],
       "@contexts/*": ["src/contexts/*"],
-      "@reducers/*": ["src/reducers/*"]
+      "@reducers/*": ["src/reducers/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"],

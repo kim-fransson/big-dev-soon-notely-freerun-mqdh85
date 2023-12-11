@@ -6,10 +6,13 @@ import { NotesContext } from "@/contexts";
 import { notesReducer } from "@/reducers";
 import { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useDebounce } from "@uidotdev/usehooks";
 
 export const Notes = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const closeAddNoteDialog = () => setShowAddNoteDialog(false);
   const openAddNoteDialog = () => setShowAddNoteDialog(true);
@@ -28,11 +31,19 @@ export const Notes = () => {
     closeAddNoteDialog();
   };
 
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+  };
+
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
-      <Navbar onSearch={() => {}} onAdd={openAddNoteDialog} />
+      <Navbar
+        onChange={handleSearch}
+        onSearch={handleSearch}
+        onAdd={openAddNoteDialog}
+      />
       <main className="p-8">
-        <NoteList />
+        <NoteList searchTerm={debouncedSearchTerm} />
       </main>
       <Dialog
         open={showAddNoteDialog}

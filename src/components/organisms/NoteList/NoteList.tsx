@@ -3,16 +3,21 @@ import { Dialog } from "@/components/molecules/Dialog";
 import { NoteCard } from "@/components/molecules/NoteCard";
 import { NoteForm, NoteFormValues } from "@/components/molecules/NoteForm";
 import { NotesContext } from "@/contexts";
+import { sortNotes } from "@/utils";
+import Fuse, { IFuseOptions } from "fuse.js";
 import { useContext, useState } from "react";
 
 export type NoteListProps = {
-  onArchiveNote?: () => void;
+  searchTerm: string;
 };
 
-const noop = () => {};
+const searchOptions: IFuseOptions<Note> = {
+  keys: ["title"] as Array<NoteKeys>,
+  threshold: 0.4,
+};
 
 export const NoteList = (props: NoteListProps) => {
-  const { onArchiveNote = noop } = props;
+  const { searchTerm } = props;
 
   const [isEditNoteDialogOpen, setIsEditNoteDialogOpen] = useState(false);
   const [isDeleteNoteDialogOpen, setIsDeleteNoteDialogOpen] = useState(false);
@@ -20,27 +25,25 @@ export const NoteList = (props: NoteListProps) => {
   const [selectedNote, setSelectedNote] = useState<Note>();
   const { notes, dispatch } = useContext(NotesContext);
 
+  const fuse = new Fuse(notes, searchOptions);
+
   const closeEditNoteDialog = () => setIsEditNoteDialogOpen(false);
   const openEditNoteDialog = () => setIsEditNoteDialogOpen(true);
 
   const closeDeleteNoteDialog = () => setIsDeleteNoteDialogOpen(false);
   const openDeleteNoteDialog = () => setIsDeleteNoteDialogOpen(true);
 
-  const events = {
-    onArchiveNote,
-  };
-
-  const handleEditNote = (note: Note) => {
+  const onEditNote = (note: Note) => {
     setSelectedNote(note);
     openEditNoteDialog();
   };
 
-  const handleDeleteNote = (note: Note) => {
+  const onDeleteNote = (note: Note) => {
     setSelectedNote(note);
     openDeleteNoteDialog();
   };
 
-  const handleArchiveNote = (note: Note) => {
+  const onArchiveNote = (note: Note) => {
     dispatch({
       type: "TOGGLE_ARCHIVE_NOTE",
       noteId: note.id,
@@ -70,26 +73,31 @@ export const NoteList = (props: NoteListProps) => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {notes
-          .sort((n1, n2) => {
-            if (n1.state === "archived" && n2.state === "archived") {
-              return n1.updatedAt >= n2.updatedAt ? -1 : 1;
-            } else if (n1.state !== "archived" && n2.state !== "archived") {
-              return n1.updatedAt >= n2.updatedAt ? -1 : 1;
-            } else {
-              return n1.state === "archived" ? 1 : -1;
-            }
-          })
-          .map((note) => (
-            <NoteCard
-              key={note.id}
-              note={note}
-              {...events}
-              onEditNote={() => handleEditNote(note)}
-              onDeleteNote={() => handleDeleteNote(note)}
-              onArchiveNote={() => handleArchiveNote(note)}
-            />
-          ))}
+        {searchTerm
+          ? fuse
+              .search(searchTerm)
+              .map((res) => res.item)
+              .sort(sortNotes)
+              .map((note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
+                  onEditNote={() => onEditNote(note)}
+                  onDeleteNote={() => onDeleteNote(note)}
+                  onArchiveNote={() => onArchiveNote(note)}
+                />
+              ))
+          : notes
+              .sort(sortNotes)
+              .map((note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
+                  onEditNote={() => onEditNote(note)}
+                  onDeleteNote={() => onDeleteNote(note)}
+                  onArchiveNote={() => onArchiveNote(note)}
+                />
+              ))}
       </div>
       <Dialog
         title="edit note"

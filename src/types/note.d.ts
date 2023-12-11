@@ -22,6 +22,8 @@ type Note = {
   state: NoteState;
 };
 
+type NoteKeys = keyof Note;
+
 type NoteAction =
   | AddNoteAction
   | DeleteNoteAction
