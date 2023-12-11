@@ -18,14 +18,20 @@ type Note = {
   category: Category;
   description?: string;
   createdAt: Date;
+  updatedAt: Date;
   state: NoteState;
 };
 
-type NoteAction = AddNoteAction | DeleteNoteAction;
+type NoteAction = AddNoteAction | DeleteNoteAction | UpdateNoteAction;
 
 type AddNoteAction = {
   type: "ADD_NOTE";
   note: Note;
+};
+
+type UpdateNoteAction = {
+  type: "UPDATE_NOTE";
+  note: Omit<Note, "createdAt" | "state">;
 };
 
 type DeleteNoteAction = {

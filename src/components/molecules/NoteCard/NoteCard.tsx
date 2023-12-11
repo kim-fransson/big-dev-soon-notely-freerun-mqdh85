@@ -27,13 +27,13 @@ export const NoteCard = (props: NoteCardProps) => {
         >
           {category.value}
         </Category>
-        <Button className="ml-4" intent="icon" onClick={() => onArchiveNote()}>
+        <Button className="ml-4" intent="icon" onPress={() => onArchiveNote()}>
           <CheckboxIcon />
         </Button>
-        <Button intent="icon" onClick={() => onEditNote()}>
+        <Button intent="icon" onPress={() => onEditNote()}>
           <PenIcon />
         </Button>
-        <Button intent="icon" onClick={() => onDeleteNote()}>
+        <Button intent="icon" onPress={() => onDeleteNote()}>
           <TrashIcon />
         </Button>
       </div>

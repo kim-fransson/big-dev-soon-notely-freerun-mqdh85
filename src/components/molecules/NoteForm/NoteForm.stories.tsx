@@ -1,14 +1,14 @@
-import { AddNoteForm } from "./AddNoteForm";
+import { NoteForm } from "./NoteForm";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta<typeof AddNoteForm> = {
-  component: AddNoteForm,
+const meta: Meta<typeof NoteForm> = {
+  component: NoteForm,
   parameters: {
     layout: "centered",
   },
   argTypes: {
-    onAdd: {
-      action: "note added",
+    onSubmit: {
+      action: "form submitted",
     },
     onCancel: {
       action: "cancel",
@@ -17,7 +17,7 @@ const meta: Meta<typeof AddNoteForm> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof AddNoteForm>;
+type Story = StoryObj<typeof NoteForm>;
 
 export const Playground: Story = {
   args: {},

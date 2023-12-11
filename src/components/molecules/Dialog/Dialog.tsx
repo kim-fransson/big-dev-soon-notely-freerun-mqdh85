@@ -12,10 +12,11 @@ export type DialogProps = {
 } & HeadlessDialogProps<"div">;
 
 export const Dialog = (props: DialogProps) => {
-  const { onClose, open, dialogChildren, title } = props;
+  const { dialogChildren, ...rest } = props;
+  const { onClose, open, title } = props;
   return (
     <Transition appear show={open} as={Fragment}>
-      <HeadlessDialog {...props} className="relative z-50">
+      <HeadlessDialog {...rest} className="relative z-50">
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -40,7 +41,7 @@ export const Dialog = (props: DialogProps) => {
             <HeadlessDialog.Panel className="bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full">
               <HeadlessDialog.Title className="header-s capitalize text-gray-900/87 leading-8 mb-6 flex justify-between items-center">
                 {title}
-                <Button intent="icon" onClick={() => onClose(false)}>
+                <Button intent="icon" onPress={() => onClose(false)}>
                   <CloseIcon />
                 </Button>
               </HeadlessDialog.Title>

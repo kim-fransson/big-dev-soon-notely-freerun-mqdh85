@@ -6,7 +6,7 @@ import TrashIcon from "@icons/delete-icon.svg?react";
 const meta: Meta<typeof Button> = {
   component: Button,
   argTypes: {
-    onClick: {
+    onPress: {
       action: "button clicked",
     },
   },

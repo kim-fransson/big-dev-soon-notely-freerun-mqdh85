@@ -28,6 +28,7 @@ export const Playground: Story = {
       },
       state: "inbox",
       createdAt: new Date(),
+      updatedAt: new Date(),
     },
   },
 };

@@ -8,7 +8,7 @@ const DialogWithState = (props: DialogProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} intent="primary">
+      <Button onPress={() => setIsOpen(true)} intent="primary">
         Open dialog
       </Button>
       <Dialog

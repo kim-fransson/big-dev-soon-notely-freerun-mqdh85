@@ -3,9 +3,7 @@ import { Select } from "@/components/atoms/Select/Select";
 import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import { TextField } from "@/components/atoms/TextField/TextField";
 import { useForm, Controller } from "react-hook-form";
-import { RefObject, useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { NotesContext } from "@/contexts";
+import { RefObject } from "react";
 
 const categories: Category[] = [
   { key: 1, value: "personal" },
@@ -13,38 +11,26 @@ const categories: Category[] = [
   { key: 3, value: "business" },
 ];
 
-export type AddNoteFormValues = {
+export type NoteFormValues = {
   title: string;
   category: Category;
   description?: string;
 };
 
-export type AddNoteFormProps = {
+export type NoteFormProps = {
+  note?: Note;
   onCancel: () => void;
-  onAdd: () => void;
+  onSubmit: (values: NoteFormValues) => void;
 };
 
-export const AddNoteForm = ({ onCancel, onAdd }: AddNoteFormProps) => {
-  const { dispatch } = useContext(NotesContext);
-  const { handleSubmit, control } = useForm<AddNoteFormValues>({
+export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
+  const { handleSubmit, control } = useForm<NoteFormValues>({
     defaultValues: {
-      title: "",
-      category: categories[0],
-      description: "",
+      title: note?.title || "",
+      category: note?.category || categories[0],
+      description: note?.description || "",
     },
   });
-
-  const onSubmit = (values: AddNoteFormValues) => {
-    dispatch({
-      type: "ADD_NOTE",
-      note: {
-        ...values,
-        createdAt: new Date(),
-        id: uuidv4(),
-      },
-    });
-    onAdd();
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
@@ -105,7 +91,7 @@ export const AddNoteForm = ({ onCancel, onAdd }: AddNoteFormProps) => {
       />
       <div className="flex justify-end gap-4">
         <Button
-          onClick={onCancel}
+          onPress={onCancel}
           type="button"
           intent="ghost"
           className="col-start-2"

@@ -17,7 +17,7 @@ export const Navbar = ({ onSearch, onAdd }: NavbarProps) => {
         className="max-w-6xl w-full"
         onSubmit={onSearch}
       />
-      <Button onClick={onAdd}>
+      <Button onPress={onAdd}>
         <PlusIcon />
         <span className="hidden md:inline-block">Add</span>
       </Button>

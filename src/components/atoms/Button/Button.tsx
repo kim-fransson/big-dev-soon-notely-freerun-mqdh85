@@ -1,7 +1,12 @@
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import { ButtonHTMLAttributes, PropsWithChildren } from "react";
-import { mergeProps, useFocusRing, usePress } from "react-aria";
+import { PropsWithChildren, useRef } from "react";
+import {
+  AriaButtonProps,
+  mergeProps,
+  useButton,
+  useFocusRing,
+} from "react-aria";
 import { twMerge } from "tailwind-merge";
 
 export type VariantButtonProps = VariantProps<typeof button>;
@@ -37,18 +42,20 @@ const button = cva(
   },
 );
 
-export type ButtonProps = VariantButtonProps &
-  ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = {
+  className?: string;
+} & VariantButtonProps &
+  AriaButtonProps &
   PropsWithChildren;
 
 export const Button = (props: ButtonProps) => {
   const { children, className, intent, ...rest } = props;
-  const { pressProps, isPressed } = usePress({});
+  const ref = useRef(null);
+  const { buttonProps, isPressed } = useButton(rest, ref);
   const { isFocusVisible, focusProps } = useFocusRing();
   return (
     <button
-      {...mergeProps(pressProps, focusProps)}
-      {...rest}
+      {...mergeProps(buttonProps, focusProps)}
       className={twMerge(
         button({ ...rest, intent }),
         isPressed && "scale-90",
