@@ -3,12 +3,13 @@ import { Dialog } from "@/components/molecules/Dialog";
 import { NoteCard } from "@/components/molecules/NoteCard";
 import { NoteForm, NoteFormValues } from "@/components/molecules/NoteForm";
 import { NotesContext } from "@/contexts";
-import { sortNotes } from "@/utils";
+import { filterByCategory, sortNotes } from "@/utils";
 import Fuse, { IFuseOptions } from "fuse.js";
 import { useContext, useState } from "react";
 
 export type NoteListProps = {
   searchTerm: string;
+  categoryFilter: Category;
 };
 
 const searchOptions: IFuseOptions<Note> = {
@@ -17,7 +18,7 @@ const searchOptions: IFuseOptions<Note> = {
 };
 
 export const NoteList = (props: NoteListProps) => {
-  const { searchTerm } = props;
+  const { searchTerm, categoryFilter } = props;
 
   const [isEditNoteDialogOpen, setIsEditNoteDialogOpen] = useState(false);
   const [isDeleteNoteDialogOpen, setIsDeleteNoteDialogOpen] = useState(false);
@@ -77,6 +78,7 @@ export const NoteList = (props: NoteListProps) => {
           ? fuse
               .search(searchTerm)
               .map((res) => res.item)
+              .filter((note) => filterByCategory(note, categoryFilter))
               .sort(sortNotes)
               .map((note) => (
                 <NoteCard
@@ -88,6 +90,7 @@ export const NoteList = (props: NoteListProps) => {
                 />
               ))
           : notes
+              .filter((note) => filterByCategory(note, categoryFilter))
               .sort(sortNotes)
               .map((note) => (
                 <NoteCard

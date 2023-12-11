@@ -4,12 +4,7 @@ import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import { TextField } from "@/components/atoms/TextField/TextField";
 import { useForm, Controller } from "react-hook-form";
 import { RefObject } from "react";
-
-const categories: Category[] = [
-  { key: 1, value: "personal" },
-  { key: 2, value: "home" },
-  { key: 3, value: "business" },
-];
+import { categories } from "../CategoryTabs";
 
 export type NoteFormValues = {
   title: string;
@@ -27,7 +22,7 @@ export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
   const { handleSubmit, control } = useForm<NoteFormValues>({
     defaultValues: {
       title: note?.title || "",
-      category: note?.category || categories[0],
+      category: note?.category || categories[1],
       description: note?.description || "",
     },
   });
@@ -64,7 +59,9 @@ export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
           render={({ field: { name, value, onChange } }) => (
             <Select
               label="category"
-              options={categories}
+              options={categories.filter(
+                (category) => category.value !== "all",
+              )}
               selectedValue={value}
               name={name}
               onChange={onChange}

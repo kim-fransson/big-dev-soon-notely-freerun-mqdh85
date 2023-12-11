@@ -7,11 +7,13 @@ import { notesReducer } from "@/reducers";
 import { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDebounce } from "@uidotdev/usehooks";
+import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
 
 export const Notes = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<Category>(categories[0]);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const closeAddNoteDialog = () => setShowAddNoteDialog(false);
@@ -43,7 +45,12 @@ export const Notes = () => {
         onAdd={openAddNoteDialog}
       />
       <main className="p-8">
-        <NoteList searchTerm={debouncedSearchTerm} />
+        <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
+        <CategoryTabs onCategoryChanged={setCategoryFilter} />
+        <NoteList
+          searchTerm={debouncedSearchTerm}
+          categoryFilter={categoryFilter}
+        />
       </main>
       <Dialog
         open={showAddNoteDialog}
