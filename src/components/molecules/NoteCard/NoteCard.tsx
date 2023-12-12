@@ -33,9 +33,9 @@ export const NoteCard = (props: NoteCardProps) => {
           className={`mr-auto ${
             isArchived && "bg-gray-900/36 text-gray-900/36"
           }`}
-          color={mapCategoryToColor(category.value)}
+          color={mapCategoryToColor(category)}
         >
-          {category.value}
+          {category}
         </Category>
         <Checkbox
           aria-label="archive note"

@@ -1,5 +1,5 @@
 import { Item } from "react-stately";
-import { Select } from "./Select";
+import { ListBox, ListBoxProps } from "./ListBox";
 import type { Meta, StoryObj } from "@storybook/react";
 
 type DemiGod = {
@@ -18,20 +18,22 @@ const demigods = [
   { key: 9, value: "Godrick The Grafted" },
 ] as DemiGod[];
 
-const meta: Meta<typeof Select> = {
-  component: Select,
+const meta: Meta<typeof ListBox> = {
+  component: ListBox,
 };
 export default meta;
 
-type Story = StoryObj<typeof Select<DemiGod>>;
+type Story = StoryObj<typeof ListBox<DemiGod>>;
 
 export const Playground: Story = {
   args: {
     items: demigods,
   },
-  render: (args) => (
-    <Select label="Pick your demigod" {...args}>
-      {(item) => <Item>{item.value}</Item>}
-    </Select>
-  ),
+  render: (args: ListBoxProps<DemiGod>) => {
+    return (
+      <ListBox aria-label="elden ring demigods" {...args}>
+        {(item) => <Item>{item.value}</Item>}
+      </ListBox>
+    );
+  },
 };

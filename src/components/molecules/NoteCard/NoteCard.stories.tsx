@@ -20,10 +20,7 @@ export const Playground: Story = {
       id: "1",
       title: "Title",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      category: {
-        key: "1",
-        value: "personal",
-      },
+      category: "personal",
       state: "inbox",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -35,10 +32,7 @@ export const Personal: Story = {
   args: {
     note: {
       ...Playground.args!.note,
-      category: {
-        key: "1",
-        value: "personal",
-      },
+      category: "personal",
     } as Note,
   },
 };
@@ -47,10 +41,7 @@ export const Business: Story = {
   args: {
     note: {
       ...Playground.args!.note,
-      category: {
-        key: "2",
-        value: "business",
-      },
+      category: "business",
     } as Note,
   },
 };
@@ -59,10 +50,7 @@ export const Home: Story = {
   args: {
     note: {
       ...Playground.args!.note,
-      category: {
-        key: "3",
-        value: "home",
-      },
+      category: "home",
     } as Note,
   },
 };

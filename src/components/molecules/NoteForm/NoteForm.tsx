@@ -1,10 +1,11 @@
 import { Button } from "@/components/atoms/Button";
-import { Select } from "@/components/atoms/Select/Select";
 import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import { TextField } from "@/components/atoms/TextField/TextField";
 import { useForm, Controller } from "react-hook-form";
 import { RefObject } from "react";
 import { categories } from "../CategoryTabs";
+import { Select } from "@/components/atoms/Select/Select";
+import { Item } from "react-stately";
 
 export type NoteFormValues = {
   title: string;
@@ -29,7 +30,7 @@ export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6 items-center">
         <Controller
           name="title"
           control={control}
@@ -52,20 +53,21 @@ export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
             />
           )}
         />
-        {/* // todo: having some issue that the option list is not focusable when open */}
         <Controller
           name="category"
           control={control}
           render={({ field: { name, value, onChange } }) => (
-            <Select
+            <Select<{ key: Category; value: Category }>
               label="category"
-              options={categories.filter(
-                (category) => category.value !== "all",
-              )}
-              selectedValue={value}
+              items={categories
+                .filter((category) => category !== "all")
+                .map((category) => ({ key: category, value: category }))}
+              selectedKey={value}
+              onSelectionChange={onChange}
               name={name}
-              onChange={onChange}
-            />
+            >
+              {(item) => <Item key={item.key}>{item.value}</Item>}
+            </Select>
           )}
         />
       </div>

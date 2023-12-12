@@ -167,7 +167,7 @@ const MessageDisplay = (props: {
   let icon: JSX.Element = <NoNotesIcon />;
   let text: string | JSX.Element = "";
 
-  if (notes.length > 0 && (!category || category.value === "all")) {
+  if (notes.length > 0 && (!category || category === "all")) {
     return null;
   }
 
@@ -181,19 +181,12 @@ const MessageDisplay = (props: {
     text = "Sorry, no notes found. Time to create some magic!";
   }
 
-  if (
-    notes.length === 0 &&
-    category &&
-    category.value !== "all" &&
-    !searchTerm
-  ) {
+  if (notes.length === 0 && category && category !== "all" && !searchTerm) {
     icon = <NoNotesIcon />;
     text = (
       <span>
         Sorry, no{" "}
-        <Category color={mapCategoryToColor(category.value)}>
-          {category.value}
-        </Category>{" "}
+        <Category color={mapCategoryToColor(category)}>{category}</Category>{" "}
         notes found. Time to create some magic!
       </span>
     );

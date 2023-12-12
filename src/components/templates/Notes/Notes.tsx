@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/atoms/Checkbox";
 // todo: clean up / refactor
 // todo: replace headless with react-aria (who wins?)
 // todo: favicon icon/text
+// todo: screen responsivness
 export const Notes = () => {
   const [localStorageNotes, saveNotes] = useLocalStorage<Note[]>("notes", []);
   const [notes, dispatch] = useReducer(notesReducer, localStorageNotes);

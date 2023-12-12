@@ -1,8 +1,4 @@
-type CategoryType = "all" | "business" | "personal" | "home";
-type Category = {
-  key: number | string;
-  value: CategoryType;
-};
+type Category = "all" | "business" | "personal" | "home";
 
 type CategoryColorMap = {
   all: "orange";

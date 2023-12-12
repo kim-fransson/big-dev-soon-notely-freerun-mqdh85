@@ -1,7 +1,7 @@
 export const mapCategoryToColor = (
-  categoryType: CategoryType,
-): CategoryColorMap[CategoryType] => {
-  switch (categoryType) {
+  category: Category,
+): CategoryColorMap[Category] => {
+  switch (category) {
     case "personal":
       return "orange";
     case "home":
