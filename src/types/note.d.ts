@@ -5,6 +5,7 @@ type Category = {
 };
 
 type CategoryColorMap = {
+  all: "orange";
   personal: "orange";
   home: "green";
   business: "purple";

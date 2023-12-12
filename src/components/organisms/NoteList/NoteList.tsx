@@ -3,13 +3,14 @@ import { Dialog } from "@/components/molecules/Dialog";
 import { NoteCard } from "@/components/molecules/NoteCard";
 import { NoteForm, NoteFormValues } from "@/components/molecules/NoteForm";
 import { NotesContext } from "@/contexts";
-import { filterByCategory, sortNotes } from "@/utils";
+import { filterByCategory, filterByState, sortNotes } from "@/utils";
 import Fuse, { IFuseOptions } from "fuse.js";
 import { useContext, useState } from "react";
 
 export type NoteListProps = {
   searchTerm: string;
-  categoryFilter: Category;
+  categoryFilter?: Category;
+  stateFilter?: NoteState;
 };
 
 const searchOptions: IFuseOptions<Note> = {
@@ -18,7 +19,7 @@ const searchOptions: IFuseOptions<Note> = {
 };
 
 export const NoteList = (props: NoteListProps) => {
-  const { searchTerm, categoryFilter } = props;
+  const { searchTerm, categoryFilter, stateFilter } = props;
 
   const [isEditNoteDialogOpen, setIsEditNoteDialogOpen] = useState(false);
   const [isDeleteNoteDialogOpen, setIsDeleteNoteDialogOpen] = useState(false);
@@ -78,7 +79,11 @@ export const NoteList = (props: NoteListProps) => {
           ? fuse
               .search(searchTerm)
               .map((res) => res.item)
-              .filter((note) => filterByCategory(note, categoryFilter))
+              .filter(
+                (note) =>
+                  filterByCategory(note, categoryFilter) &&
+                  filterByState(note, stateFilter),
+              )
               .sort(sortNotes)
               .map((note) => (
                 <NoteCard
@@ -90,7 +95,11 @@ export const NoteList = (props: NoteListProps) => {
                 />
               ))
           : notes
-              .filter((note) => filterByCategory(note, categoryFilter))
+              .filter(
+                (note) =>
+                  filterByCategory(note, categoryFilter) &&
+                  filterByState(note, stateFilter),
+              )
               .sort(sortNotes)
               .map((note) => (
                 <NoteCard

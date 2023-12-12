@@ -8,11 +8,13 @@ import { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDebounce } from "@uidotdev/usehooks";
 import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
+import { Checkbox } from "@/components/atoms/Checkbox";
 
 export const Notes = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showArchived, setShowArchived] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<Category>(categories[0]);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -46,10 +48,16 @@ export const Notes = () => {
       />
       <main className="p-8">
         <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
-        <CategoryTabs onCategoryChanged={setCategoryFilter} />
+        <div className="flex justify-between items-center mb-8">
+          <CategoryTabs onCategoryChanged={setCategoryFilter} />
+          <Checkbox isSelected={showArchived} onChange={setShowArchived}>
+            Show only completed notes
+          </Checkbox>
+        </div>
         <NoteList
           searchTerm={debouncedSearchTerm}
           categoryFilter={categoryFilter}
+          stateFilter={showArchived ? "archived" : undefined}
         />
       </main>
       <Dialog

@@ -3,8 +3,7 @@ import { Category } from "@/components/atoms/Category";
 import { DateTime } from "luxon";
 import PenIcon from "@icons/edit-icon.svg?react";
 import TrashIcon from "@icons/delete-icon.svg?react";
-import CheckboxIcon from "@icons/checkbox-icon.svg?react";
-import CheckboxCheckedIcon from "@icons/checkbox-checked-icon.svg?react";
+import { Checkbox } from "@/components/atoms/Checkbox";
 
 export type NoteCardProps = {
   note: Note;
@@ -37,9 +36,11 @@ export const NoteCard = (props: NoteCardProps) => {
         >
           {category.value}
         </Category>
-        <Button className="ml-4" intent="icon" onPress={() => onArchiveNote()}>
-          {isArchived ? <CheckboxCheckedIcon /> : <CheckboxIcon />}
-        </Button>
+        <Checkbox
+          aria-label="archive note"
+          isSelected={isArchived}
+          onChange={onArchiveNote}
+        />
         <Button intent="icon" onPress={() => onEditNote()}>
           <PenIcon />
         </Button>
