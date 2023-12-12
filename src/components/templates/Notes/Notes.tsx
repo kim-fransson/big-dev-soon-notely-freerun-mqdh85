@@ -4,14 +4,28 @@ import { Navbar } from "@/components/organisms/Navbar";
 import { NoteList } from "@/components/organisms/NoteList";
 import { NotesContext } from "@/contexts";
 import { notesReducer } from "@/reducers";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useDebounce } from "@uidotdev/usehooks";
+import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
 import { Checkbox } from "@/components/atoms/Checkbox";
 
+// todo: pre-select category when create a new note?
+// todo: auto-select description text when edit?
+// todo: checkbox for not closing dialog if creating multiple notes
+// todo: create/manage categories?
+// todo: write interaction tests?
+// todo: clean up / refactor
+// todo: replace headless with react-aria (who wins?)
+// todo: favicon icon/text
 export const Notes = () => {
-  const [notes, dispatch] = useReducer(notesReducer, []);
+  const [localStorageNotes, saveNotes] = useLocalStorage<Note[]>("notes", []);
+  const [notes, dispatch] = useReducer(notesReducer, localStorageNotes);
+
+  useEffect(() => {
+    saveNotes(notes);
+  }, [notes, saveNotes]);
+
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showArchived, setShowArchived] = useState(false);
