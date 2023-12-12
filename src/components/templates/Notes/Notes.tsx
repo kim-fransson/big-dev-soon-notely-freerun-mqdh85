@@ -11,13 +11,9 @@ import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
 import { Checkbox } from "@/components/atoms/Checkbox";
 
 // todo: pre-select category when create a new note?
-// todo: auto-select description text when edit?
-// todo: checkbox for not closing dialog if creating multiple notes
-// todo: create/manage categories?
 // todo: write interaction tests?
-// todo: clean up / refactor
-// todo: replace headless with react-aria (who wins?)
 // todo: screen responsivness
+// todo: invalid datetime after refresh
 export const Notes = () => {
   const [localStorageNotes, saveNotes] = useLocalStorage<Note[]>("notes", []);
   const [notes, dispatch] = useReducer(notesReducer, localStorageNotes);

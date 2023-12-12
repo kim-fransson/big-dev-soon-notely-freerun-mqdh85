@@ -1,44 +1,60 @@
 import {
   Dialog as HeadlessDialog,
   DialogProps as HeadlessDialogProps,
-  Transition,
 } from "@headlessui/react";
 import CloseIcon from "@icons/close-icon.svg?react";
 import { Button } from "@/components/atoms/Button";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export type DialogProps = {
   dialogChildren: ReactNode;
 } & HeadlessDialogProps<"div">;
 
+const dropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "0",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    y: "100vh",
+    opacity: 0,
+  },
+};
+
 export const Dialog = (props: DialogProps) => {
   const { dialogChildren, ...rest } = props;
   const { onClose, open, title } = props;
   return (
-    <Transition appear show={open} as={Fragment}>
-      <HeadlessDialog {...rest} className="relative z-50">
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-        </Transition.Child>
-        <div className="fixed inset-0 flex w-screen items-center justify-center">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-90"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-300"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-90"
-          >
-            <HeadlessDialog.Panel className="bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full">
+    <AnimatePresence>
+      {open && (
+        <HeadlessDialog {...rest} className="relative z-50">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/30"
+            aria-hidden="true"
+          />
+          <div className="fixed inset-0 flex w-screen items-center justify-center">
+            <HeadlessDialog.Panel
+              as={motion.div}
+              variants={dropIn}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full"
+            >
               <HeadlessDialog.Title className="header-s capitalize text-gray-900/87 leading-8 mb-6 flex justify-between items-center">
                 {title}
                 <Button intent="icon" onPress={() => onClose(false)}>
@@ -47,9 +63,9 @@ export const Dialog = (props: DialogProps) => {
               </HeadlessDialog.Title>
               {dialogChildren}
             </HeadlessDialog.Panel>
-          </Transition.Child>
-        </div>
-      </HeadlessDialog>
-    </Transition>
+          </div>
+        </HeadlessDialog>
+      )}
+    </AnimatePresence>
   );
 };

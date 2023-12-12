@@ -1,8 +1,31 @@
 import { PropsWithChildren, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export type TooltipProps = {
   text: string;
 } & PropsWithChildren;
+
+const fadeIn = {
+  hidden: {
+    opacity: 0,
+    y: "80%",
+    x: "-50%",
+  },
+  visible: {
+    y: "100%",
+    x: "-50%",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    opacity: 0,
+  },
+};
 
 export const Tooltip = ({ text, children }: TooltipProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -40,14 +63,20 @@ export const Tooltip = ({ text, children }: TooltipProps) => {
       >
         {children}
       </div>
-      {showTooltip && (
-        <div
-          className="absolute z-10 px-3 py-2 caption text-gray-100 bg-gray-600 
-        rounded-lg shadow-md left-1/2 -translate-x-1/2 capitalize -bottom-2 translate-y-full"
-        >
-          {text}
-        </div>
-      )}
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute z-10 px-3 py-2 caption text-gray-100 bg-gray-600 
+            rounded-lg shadow-md left-1/2 capitalize -bottom-2"
+          >
+            {text}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
