@@ -50,36 +50,53 @@ export const Notes = () => {
 
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
-      <Navbar
-        onChange={handleSearch}
-        onSearch={handleSearch}
-        onAdd={openAddNoteDialog}
-      />
-      <main className="p-8">
-        <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
-        <div className="flex md:flex-row flex-col md:justify-between md:items-center mb-8">
-          <CategoryTabs
-            activeCategory={categoryFilter}
-            onCategoryChanged={setCategoryFilter}
-          />
-          <Checkbox isSelected={showArchived} onChange={setShowArchived}>
-            Show only completed notes
-          </Checkbox>
-        </div>
-        <NoteList
-          searchTerm={debouncedSearchTerm}
-          categoryFilter={categoryFilter}
-          stateFilter={showArchived ? "archived" : undefined}
+      <div className="min-h-screen">
+        <Navbar
+          onChange={handleSearch}
+          onSearch={handleSearch}
+          onAdd={openAddNoteDialog}
         />
-      </main>
-      <Dialog
-        open={showAddNoteDialog}
-        onClose={closeAddNoteDialog}
-        heading="add note"
-        dialogChildren={
-          <NoteForm onSubmit={handleSubmit} onCancel={closeAddNoteDialog} />
-        }
-      />
+        <main className="p-8">
+          <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
+          <div className="flex md:flex-row flex-col md:justify-between md:items-center mb-8">
+            <CategoryTabs
+              activeCategory={categoryFilter}
+              onCategoryChanged={setCategoryFilter}
+            />
+            <Checkbox isSelected={showArchived} onChange={setShowArchived}>
+              Show only completed notes
+            </Checkbox>
+          </div>
+          <NoteList
+            searchTerm={debouncedSearchTerm}
+            categoryFilter={categoryFilter}
+            stateFilter={showArchived ? "archived" : undefined}
+          />
+        </main>
+        <Dialog
+          open={showAddNoteDialog}
+          onClose={closeAddNoteDialog}
+          heading="add note"
+          dialogChildren={
+            <NoteForm onSubmit={handleSubmit} onCancel={closeAddNoteDialog} />
+          }
+        />
+        <footer className="fixed bottom-0 left-0 right-0 bg-white p-3 flex items-center justify-end gap-4">
+          <div className="flex items-center gap-2">
+            <span className="select-none rounded-lg bg-[#672871] px-2 py-1 text-gray-100 body-2">
+              Designs from
+            </span>
+            <a
+              className="body-2 hover:text-[#672871]"
+              href="https://bigdevsoon.me/"
+              target="_blank"
+              title="BigDevSoon"
+            >
+              BigDevSoon.me
+            </a>
+          </div>
+        </footer>
+      </div>
     </NotesContext.Provider>
   );
 };

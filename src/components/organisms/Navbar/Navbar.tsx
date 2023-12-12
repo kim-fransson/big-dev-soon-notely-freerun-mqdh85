@@ -11,7 +11,7 @@ export type NavbarProps = {
 
 export const Navbar = ({ onSearch, onAdd, onChange }: NavbarProps) => {
   return (
-    <nav className="flex gap-5 justify-center items-center p-4 overflow-hidden bg-white shadow-md">
+    <nav className="flex sticky top-0 left-0 right-0 z-20 gap-5 justify-center items-center p-4 overflow-hidden bg-white shadow-md">
       <SearchField
         placeholder="Search"
         aria-label="Search for notes"
