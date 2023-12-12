@@ -5,6 +5,7 @@ export type CategoryTabsProps = {
   onCategoryChanged: (category: Category) => void;
 } & Omit<TabGroupProps<"div">, "onChange">;
 
+// todo: add some nice transitions
 export const CategoryTabs = (props: CategoryTabsProps) => {
   const { onCategoryChanged, ...rest } = props;
   return (
