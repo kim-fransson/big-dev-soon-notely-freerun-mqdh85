@@ -17,7 +17,7 @@ export const ListBox = <T extends object>(props: ListBoxProps<T>) => {
     <ul
       {...listBoxProps}
       ref={listBoxRef}
-      className="w-full rounded-lg outline-none overflow-hidden mt-2 shadow-md border-black/12"
+      className="w-full rounded-lg outline-none overflow-hidden mt-2 shadow-md"
     >
       {[...state.collection].map((item) => (
         <Option key={item.key} item={item} state={state} />

@@ -5,6 +5,7 @@ import PenIcon from "@icons/edit-icon.svg?react";
 import TrashIcon from "@icons/delete-icon.svg?react";
 import { Checkbox } from "@/components/atoms/Checkbox";
 import { mapCategoryToColor } from "@/utils";
+import { Tooltip } from "@/components/atoms/Tooltip/Tooltip";
 
 export type NoteCardProps = {
   note: Note;
@@ -36,17 +37,23 @@ export const NoteCard = (props: NoteCardProps) => {
         >
           {category}
         </Category>
-        <Checkbox
-          aria-label="archive note"
-          isSelected={isArchived}
-          onChange={onArchiveNote}
-        />
-        <Button intent="icon" onPress={() => onEditNote()}>
-          <PenIcon />
-        </Button>
-        <Button intent="icon" onPress={() => onDeleteNote()}>
-          <TrashIcon />
-        </Button>
+        <Tooltip text={isArchived ? "incomplete" : "complete"}>
+          <Checkbox
+            aria-label="archive note"
+            isSelected={isArchived}
+            onChange={onArchiveNote}
+          />
+        </Tooltip>
+        <Tooltip text="edit">
+          <Button intent="icon" onPress={() => onEditNote()}>
+            <PenIcon />
+          </Button>
+        </Tooltip>
+        <Tooltip text="delete">
+          <Button intent="icon" onPress={() => onDeleteNote()}>
+            <TrashIcon />
+          </Button>
+        </Tooltip>
       </div>
       <h2
         className={`header-s leading-8 mb-2 ${
