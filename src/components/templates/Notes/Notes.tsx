@@ -17,7 +17,6 @@ import { Checkbox } from "@/components/atoms/Checkbox";
 // todo: write interaction tests?
 // todo: clean up / refactor
 // todo: replace headless with react-aria (who wins?)
-// todo: favicon icon/text
 // todo: screen responsivness
 export const Notes = () => {
   const [localStorageNotes, saveNotes] = useLocalStorage<Note[]>("notes", []);

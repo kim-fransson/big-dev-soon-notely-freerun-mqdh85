@@ -34,7 +34,7 @@ const Option = ({
   state: ListState<unknown>;
 }) => {
   const ref = useRef(null);
-  const { optionProps, isSelected, isFocused } = useOption(
+  const { optionProps, isFocusVisible } = useOption(
     { key: item.key },
     state,
     ref,
@@ -44,8 +44,8 @@ const Option = ({
     <li
       {...optionProps}
       ref={ref}
-      className={`capitalize input py-3 px-4 truncate outline-none cursor-pointer ${
-        isSelected || isFocused
+      className={`capitalize input py-3 px-4 truncate outline-none cursor-pointer hover:bg-blue-500 hover:text-gray-100 ${
+        isFocusVisible
           ? "bg-blue-500 text-gray-100"
           : "bg-white text-gray-900/87"
       }`}
