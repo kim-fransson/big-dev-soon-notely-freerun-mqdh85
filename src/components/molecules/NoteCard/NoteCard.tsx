@@ -20,7 +20,8 @@ export const NoteCard = (props: NoteCardProps) => {
 
   const isArchived = state === "archived";
 
-  const timestamp = DateTime.fromJSDate(createdAt).toFormat("dd.MM.yyyy");
+  const timestamp = DateTime.fromISO(createdAt).toFormat("dd.MM.yyyy");
+
   return (
     <div
       className={`rounded-2xl shadow-md p-5 overflow-hidden max-w-sm ${

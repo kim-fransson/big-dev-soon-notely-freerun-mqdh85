@@ -10,10 +10,8 @@ import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
 import { Checkbox } from "@/components/atoms/Checkbox";
 
-// todo: pre-select category when create a new note?
 // todo: write interaction tests?
 // todo: screen responsivness
-// todo: invalid datetime after refresh
 export const Notes = () => {
   const [localStorageNotes, saveNotes] = useLocalStorage<Note[]>("notes", []);
   const [notes, dispatch] = useReducer(notesReducer, localStorageNotes);
@@ -36,13 +34,14 @@ export const Notes = () => {
       type: "ADD_NOTE",
       note: {
         ...values,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         id: uuidv4(),
         state: "inbox",
       },
     });
     closeAddNoteDialog();
+    setCategoryFilter(values.category);
   };
 
   const handleSearch = (value: string) => {
@@ -59,7 +58,10 @@ export const Notes = () => {
       <main className="p-8">
         <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
         <div className="flex justify-between items-center mb-8">
-          <CategoryTabs onCategoryChanged={setCategoryFilter} />
+          <CategoryTabs
+            activeCategory={categoryFilter}
+            onCategoryChanged={setCategoryFilter}
+          />
           <Checkbox isSelected={showArchived} onChange={setShowArchived}>
             Show only completed notes
           </Checkbox>
@@ -73,7 +75,7 @@ export const Notes = () => {
       <Dialog
         open={showAddNoteDialog}
         onClose={closeAddNoteDialog}
-        title="add note"
+        heading="add note"
         dialogChildren={
           <NoteForm onSubmit={handleSubmit} onCancel={closeAddNoteDialog} />
         }

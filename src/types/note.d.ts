@@ -14,8 +14,8 @@ type Note = {
   title: string;
   category: Category;
   description?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   state: NoteState;
 };
 

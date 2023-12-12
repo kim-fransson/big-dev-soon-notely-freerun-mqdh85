@@ -17,9 +17,15 @@ export type NoteFormProps = {
   note?: Note;
   onCancel: () => void;
   onSubmit: (values: NoteFormValues) => void;
+  confirmButtonText?: string;
 };
 
-export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
+export const NoteForm = ({
+  onCancel,
+  onSubmit,
+  note,
+  confirmButtonText = "add",
+}: NoteFormProps) => {
   const { handleSubmit, control } = useForm<NoteFormValues>({
     defaultValues: {
       title: note?.title || "",
@@ -97,8 +103,12 @@ export const NoteForm = ({ onCancel, onSubmit, note }: NoteFormProps) => {
         >
           Cancel
         </Button>
-        <Button type="submit" intent="primary" className="col-start-2">
-          Add
+        <Button
+          type="submit"
+          intent="primary"
+          className="col-start-2 capitalize"
+        >
+          {confirmButtonText}
         </Button>
       </div>
     </form>

@@ -118,7 +118,7 @@ export const NoteList = (props: NoteListProps) => {
         searchTerm={searchTerm}
       />
       <Dialog
-        title="edit note"
+        heading="edit note"
         open={isEditNoteDialogOpen}
         onClose={closeEditNoteDialog}
         dialogChildren={
@@ -126,11 +126,12 @@ export const NoteList = (props: NoteListProps) => {
             note={selectedNote}
             onSubmit={handleSubmit}
             onCancel={closeEditNoteDialog}
+            confirmButtonText="update"
           />
         }
       />
       <Dialog
-        title="delete note"
+        heading="delete note"
         open={isDeleteNoteDialogOpen}
         onClose={closeDeleteNoteDialog}
         dialogChildren={

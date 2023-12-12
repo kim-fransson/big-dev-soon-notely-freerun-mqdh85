@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export type DialogProps = {
   dialogChildren: ReactNode;
+  heading: string;
 } & HeadlessDialogProps<"div">;
 
 const dropIn = {
@@ -34,7 +35,7 @@ const dropIn = {
 
 export const Dialog = (props: DialogProps) => {
   const { dialogChildren, ...rest } = props;
-  const { onClose, open, title } = props;
+  const { onClose, open, heading } = props;
   return (
     <AnimatePresence>
       {open && (
@@ -56,7 +57,7 @@ export const Dialog = (props: DialogProps) => {
               className="bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full"
             >
               <HeadlessDialog.Title className="header-s capitalize text-gray-900/87 leading-8 mb-6 flex justify-between items-center">
-                {title}
+                {heading}
                 <Button intent="icon" onPress={() => onClose(false)}>
                   <CloseIcon />
                 </Button>

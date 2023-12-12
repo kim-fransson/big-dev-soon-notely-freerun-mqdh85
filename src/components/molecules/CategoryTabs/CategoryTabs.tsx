@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 
 export type CategoryTabsProps = {
   onCategoryChanged: (category: Category) => void;
+  activeCategory: Category;
 } & Omit<TabGroupProps<"div">, "onChange">;
 
 export const CategoryTabs = (props: CategoryTabsProps) => {
-  const { onCategoryChanged, ...rest } = props;
+  const { onCategoryChanged, activeCategory = "all", ...rest } = props;
   return (
     <Tab.Group
       {...rest}
+      selectedIndex={categories.indexOf(activeCategory)}
       onChange={(index) => {
         const category = categories[index];
         onCategoryChanged(category);

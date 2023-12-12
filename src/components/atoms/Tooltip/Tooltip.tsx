@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type TooltipProps = {
@@ -29,23 +29,45 @@ const fadeIn = {
 
 export const Tooltip = ({ text, children }: TooltipProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [keyboardFocused, setKeyboardFocused] = useState(false);
+
   let enterTimeout: NodeJS.Timeout;
 
+  useEffect(() => {
+    const handleKeyDown = () => {
+      setKeyboardFocused(true);
+    };
+    const handleMouseDown = () => {
+      setKeyboardFocused(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, []);
+
   const handleMouseEnter = () => {
+    setKeyboardFocused(false);
     enterTimeout = setTimeout(() => {
       setShowTooltip(true);
-    }, 500);
+    }, 300);
   };
 
   const handleMouseLeave = () => {
     clearTimeout(enterTimeout);
     setTimeout(() => {
       setShowTooltip(false);
-    }, 500);
+    }, 100);
   };
 
   const handleFocus = () => {
-    setShowTooltip(true);
+    if (keyboardFocused) {
+      setShowTooltip(true);
+    }
   };
 
   const handleBlur = () => {

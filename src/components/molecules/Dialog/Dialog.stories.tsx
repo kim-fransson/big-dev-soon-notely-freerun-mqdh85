@@ -15,7 +15,7 @@ const DialogWithState = (props: DialogProps) => {
         {...props}
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        title="dialog"
+        heading="dialog"
         dialogChildren={<div>Children goes here</div>}
       />
     </>
