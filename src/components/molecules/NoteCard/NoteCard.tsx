@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import PenIcon from "@icons/edit-icon.svg?react";
 import TrashIcon from "@icons/delete-icon.svg?react";
 import { Checkbox } from "@/components/atoms/Checkbox";
+import { mapCategoryToColor } from "@/utils";
 
 export type NoteCardProps = {
   note: Note;
@@ -77,19 +78,4 @@ export const NoteCard = (props: NoteCardProps) => {
       </p>
     </div>
   );
-};
-
-const mapCategoryToColor = (
-  categoryType: CategoryType,
-): CategoryColorMap[CategoryType] => {
-  switch (categoryType) {
-    case "personal":
-      return "orange";
-    case "home":
-      return "green";
-    case "business":
-      return "purple";
-    default:
-      return "orange"; // Default to orange if the category type is not recognized
-  }
 };

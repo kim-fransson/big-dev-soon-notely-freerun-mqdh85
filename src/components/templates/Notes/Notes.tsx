@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useDebounce } from "@uidotdev/usehooks";
 import { CategoryTabs, categories } from "@/components/molecules/CategoryTabs";
 import { Checkbox } from "@/components/atoms/Checkbox";
-import EmptyStateIcon from "@icons/no-notes-illustration.svg?react";
 
 export const Notes = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
@@ -60,14 +59,6 @@ export const Notes = () => {
           categoryFilter={categoryFilter}
           stateFilter={showArchived ? "archived" : undefined}
         />
-        {notes.length === 0 && !searchTerm && (
-          <div className="mx-auto flex flex-col gap-4 items-center mt-20">
-            <EmptyStateIcon />
-            <span className="header-xs text-gray-900">
-              You don't have any notes
-            </span>
-          </div>
-        )}
       </main>
       <Dialog
         open={showAddNoteDialog}

@@ -1,11 +1,19 @@
 import { Button } from "@/components/atoms/Button";
+import { Category } from "@/components/atoms/Category";
 import { Dialog } from "@/components/molecules/Dialog";
 import { NoteCard } from "@/components/molecules/NoteCard";
 import { NoteForm, NoteFormValues } from "@/components/molecules/NoteForm";
 import { NotesContext } from "@/contexts";
-import { filterByCategory, filterByState, sortNotes } from "@/utils";
+import {
+  filterByCategory,
+  filterByState,
+  mapCategoryToColor,
+  sortNotes,
+} from "@/utils";
 import Fuse, { IFuseOptions } from "fuse.js";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import NoNotesIcon from "@icons/no-notes-illustration.svg?react";
+import NoResultsIcon from "@icons/no-search-results-illustration.svg?react";
 
 export type NoteListProps = {
   searchTerm: string;
@@ -27,7 +35,25 @@ export const NoteList = (props: NoteListProps) => {
   const [selectedNote, setSelectedNote] = useState<Note>();
   const { notes, dispatch } = useContext(NotesContext);
 
-  const fuse = new Fuse(notes, searchOptions);
+  const [activeList, setActiveList] = useState(notes);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const fuse = new Fuse(notes, searchOptions);
+      setActiveList(fuse.search(searchTerm).map((res) => res.item));
+    } else {
+      setActiveList(notes);
+    }
+    setActiveList((curr) =>
+      curr
+        .filter(
+          (note) =>
+            filterByCategory(note, categoryFilter) &&
+            filterByState(note, stateFilter),
+        )
+        .sort(sortNotes),
+    );
+  }, [searchTerm, notes, categoryFilter, stateFilter]);
 
   const closeEditNoteDialog = () => setIsEditNoteDialogOpen(false);
   const openEditNoteDialog = () => setIsEditNoteDialogOpen(true);
@@ -72,49 +98,25 @@ export const NoteList = (props: NoteListProps) => {
     closeDeleteNoteDialog();
   };
 
-  if (notes.length === 0) {
-    return null;
-  }
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {searchTerm
-          ? fuse
-              .search(searchTerm)
-              .map((res) => res.item)
-              .filter(
-                (note) =>
-                  filterByCategory(note, categoryFilter) &&
-                  filterByState(note, stateFilter),
-              )
-              .sort(sortNotes)
-              .map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onEditNote={() => onEditNote(note)}
-                  onDeleteNote={() => onDeleteNote(note)}
-                  onArchiveNote={() => onArchiveNote(note)}
-                />
-              ))
-          : notes
-              .filter(
-                (note) =>
-                  filterByCategory(note, categoryFilter) &&
-                  filterByState(note, stateFilter),
-              )
-              .sort(sortNotes)
-              .map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onEditNote={() => onEditNote(note)}
-                  onDeleteNote={() => onDeleteNote(note)}
-                  onArchiveNote={() => onArchiveNote(note)}
-                />
-              ))}
+        {activeList.map((note) => (
+          <NoteCard
+            key={note.id}
+            note={note}
+            onEditNote={() => onEditNote(note)}
+            onDeleteNote={() => onDeleteNote(note)}
+            onArchiveNote={() => onArchiveNote(note)}
+          />
+        ))}
       </div>
+      <MessageDisplay
+        notes={activeList}
+        showArchived={stateFilter === "archived"}
+        category={categoryFilter}
+        searchTerm={searchTerm}
+      />
       <Dialog
         title="edit note"
         open={isEditNoteDialogOpen}
@@ -148,5 +150,64 @@ export const NoteList = (props: NoteListProps) => {
         }
       />
     </>
+  );
+};
+
+const MessageDisplay = (props: {
+  notes: Note[];
+  showArchived: boolean;
+  category?: Category;
+  searchTerm?: string;
+}) => {
+  const { notes, showArchived, category, searchTerm } = props;
+  if (notes.length > 0) {
+    return null;
+  }
+
+  let icon: JSX.Element = <NoNotesIcon />;
+  let text: string | JSX.Element = "";
+
+  if (notes.length > 0 && (!category || category.value === "all")) {
+    return null;
+  }
+
+  if (notes.length === 0 && !searchTerm) {
+    icon = <NoNotesIcon />;
+    text = "Oops! No notes here. Time to start your note-taking adventure!";
+  }
+
+  if (notes.length === 0 && searchTerm) {
+    icon = <NoResultsIcon />;
+    text = "Sorry, no notes found. Time to create some magic!";
+  }
+
+  if (
+    notes.length === 0 &&
+    category &&
+    category.value !== "all" &&
+    !searchTerm
+  ) {
+    icon = <NoNotesIcon />;
+    text = (
+      <span>
+        Sorry, no{" "}
+        <Category color={mapCategoryToColor(category.value)}>
+          {category.value}
+        </Category>{" "}
+        notes found. Time to create some magic!
+      </span>
+    );
+  }
+
+  if (notes.length === 0 && showArchived && !searchTerm) {
+    icon = <NoNotesIcon />;
+    text = "Oops! No completed notes yet. Keep going, the finish line is near!";
+  }
+
+  return (
+    <div className="mx-auto flex flex-col gap-4 items-center mt-20">
+      {icon}
+      <span className="header-xs text-gray-900">{text}</span>
+    </div>
   );
 };
