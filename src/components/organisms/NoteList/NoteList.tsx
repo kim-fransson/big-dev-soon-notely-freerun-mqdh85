@@ -84,7 +84,7 @@ export const NoteList = (props: NoteListProps) => {
       note: {
         ...values,
         id: selectedNote!.id,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       },
     });
     closeEditNoteDialog();

@@ -22,8 +22,8 @@ export const Playground: Story = {
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       category: "personal",
       state: "inbox",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
   },
 };

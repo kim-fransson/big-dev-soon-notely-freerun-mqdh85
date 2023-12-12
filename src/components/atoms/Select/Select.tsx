@@ -58,9 +58,7 @@ export const Select = <T extends object>(props: SelectProps<T>) => {
           triggerRef={ref}
           placement="bottom start"
         >
-          <ListBox {...menuProps} state={state}>
-            {}
-          </ListBox>
+          <ListBox children={[]} {...menuProps} state={state} />
         </Popover>
       )}
     </div>
