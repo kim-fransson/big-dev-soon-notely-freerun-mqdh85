@@ -201,7 +201,7 @@ const MessageDisplay = (props: {
   return (
     <div className="mx-auto flex flex-col gap-4 items-center mt-20">
       {icon}
-      <span className="header-xs text-gray-900">{text}</span>
+      <span className="header-xs text-gray-900 text-center">{text}</span>
     </div>
   );
 };

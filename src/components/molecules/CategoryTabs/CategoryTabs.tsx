@@ -22,7 +22,7 @@ export const CategoryTabs = (props: CategoryTabsProps) => {
         {categories.map((category) => (
           <Tab
             key={category}
-            className={`button-text relative transition-colors w-24 mb-2 outline-none text-gray-900/60 hover:text-gray-900/87 
+            className={`md:button-text relative transition-colors w-20 md:w-24 mb-2 outline-none text-gray-900/60 hover:text-gray-900/87 
             capitalize ui-selected:text-blue-400 ui-focus-visible:outline-blue-400`}
           >
             {({ selected }) => (

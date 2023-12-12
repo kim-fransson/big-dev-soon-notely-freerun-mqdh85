@@ -57,7 +57,7 @@ export const Notes = () => {
       />
       <main className="p-8">
         <h2 className="header-s text-gray-900/87 mb-7">Your Notes</h2>
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex md:flex-row flex-col md:justify-between md:items-center mb-8">
           <CategoryTabs
             activeCategory={categoryFilter}
             onCategoryChanged={setCategoryFilter}
