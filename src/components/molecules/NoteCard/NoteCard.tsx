@@ -14,7 +14,6 @@ export type NoteCardProps = {
   onEditNote: () => void;
 };
 
-// todo: tooltip for icon buttons
 export const NoteCard = (props: NoteCardProps) => {
   const { onArchiveNote, onDeleteNote, onEditNote } = props;
   const { title, description, category, createdAt, state } = props.note;
